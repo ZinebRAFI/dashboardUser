@@ -1,0 +1,28 @@
+<nz-form [formGroup]="loginForm" (ngSubmit)="login()">
+    <nz-form-item>
+      <nz-form-control [nzErrorTip]="usernameErrorTpl">
+        <input nz-input formControlName="username" placeholder="Nom d'utilisateur" />
+        <ng-template #usernameErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Le nom d'utilisateur est requis.
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+  
+    <nz-form-item>
+      <nz-form-control [nzErrorTip]="passwordErrorTpl">
+        <input nz-input formControlName="password" type="password" placeholder="Mot de passe" />
+        <ng-template #passwordErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Le mot de passe est requis.
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+  
+    <nz-form-item>
+      <button nz-button nzType="primary" [disabled]="loginForm.invalid">Connexion</button>
+    </nz-form-item>
+  </nz-form>
+  

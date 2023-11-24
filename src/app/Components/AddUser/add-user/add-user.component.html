@@ -1,0 +1,45 @@
+<!-- add-user.component.html -->
+
+<form (ngSubmit)="submitForm()" #userForm="ngForm">
+    <!-- User details fields -->
+    <label for=" firstName"> FirstName:</label>
+    <input type="text" id=" firstName" name="u firstName" [(ngModel)]="user. firstName" required>
+
+    <label for=" lastName"> LastName:</label>
+    <input type="text" id=" lastName" name="u lastName" [(ngModel)]="user. lastName" required>
+  
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" [(ngModel)]="user.username" required>
+  
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" [(ngModel)]="user.email" required>
+  
+    <label for="password">Password:</label>
+  <nz-input-password
+    id="password"
+    name="password"
+    [(ngModel)]="user.password"
+    [nzMinLength]="8"
+    [nzHasFeedback]="true"
+    [nzRequired]="true"
+    [nzValidateStatus]="getPasswordValidationStatus()">
+  </nz-input-password>
+  
+    <!-- Role selection dropdown -->
+    <label for="role">Role:</label>
+    <nz-select [(ngModel)]="user.role" name="role">
+      <nz-option *ngFor="let role of availableRoles" [nzValue]="role.value" [nzLabel]="role.label"></nz-option>
+    </nz-select>
+  
+    <!-- Email notification checkbox -->
+    <label>
+      <input type="checkbox" [(ngModel)]="sendEmail"> Send Email Notification
+    </label>
+  
+    <button type="submit" [disabled]="userForm.invalid">Create User</button>
+  </form>
+
+  <!-- Alerts -->
+<nz-alert *ngIf="success" nzType="success" [nzMessage]="'Success'" [nzDescription]="'User created successfully'" [nzBannerStyle]="{ background: '#52c41a' }"></nz-alert>
+<nz-alert *ngIf="warning" nzType="warning" [nzMessage]="'Warning'" [nzDescription]="'Duplicated entries detected'" [nzBannerStyle]="{ background: '#faad14' }"></nz-alert>
+<nz-alert *ngIf="error" nzType="error" [nzMessage]="'Error'" [nzDescription]="'Server error occurred'" [nzBannerStyle]="{ background: '#ff4d4f' }"></nz-alert>

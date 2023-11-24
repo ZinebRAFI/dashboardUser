@@ -1,0 +1,41 @@
+  <div>
+    <h2>Users List</h2>
+  
+    <!-- Search Bar -->
+    <nz-input-group [nzSuffix]="suffixIcon" nzSearch>
+      <input nz-input [(ngModel)]="searchName" (ngModelChange)="search()">
+    </nz-input-group>
+    <ng-template #suffixIcon>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
+  
+    <!-- Add New User Button -->
+    <button nz-button nzType="primary" (click)="addNewUser()">Add New User</button>
+  
+    <!-- Sortable Table -->
+    <nz-table #table [nzData]="users" nzBordered nzPageSize="10" (nzCurrentPageDataChange)="currentPageDataChange($event)">
+      <thead>
+        <tr>
+          <th
+            *ngFor="let column of listOfColumns"
+            [nzSortOrder]="column.sortOrder"
+            [nzSortFn]="column.sortFn"
+            [nzSortDirections]="column.sortDirections"
+            [nzFilterMultiple]="column.filterMultiple"
+            [nzFilters]="column.listOfFilter"
+            [nzFilterFn]="column.filterFn"
+          >
+            {{ column.name }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of table.data">
+          <td (click)="showUserProfile(user)">{{ user.name }}</td>
+          <td>{{ user.role }}</td>
+          <td>{{ user.registrationDate | date }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  
